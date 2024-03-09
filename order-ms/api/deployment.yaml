@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-api
+  namespace: tech-challenge
+spec:
+  selector:
+    matchLabels:
+      app: payment-api
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: payment-api
+    spec:
+      containers:
+      - name: payment-api
+        image: tech-challenge/payment-api:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+        env:
+          - name: MERCADO_PAGO_URL
+            value: "https://api.mercadopago.com"
+          - name: MERCADO_PAGO_USER
+            value: "268051208"
+          - name: MERCADO_PAGO_TOKEN
+            value: "TEST-2699929570739973-012315-c34fb1e302973d0e4970dd6b72b360de-268051208"
+          - name: MERCADO_PAGO_EMPRESA_ID
+            value: "EMP1"
+          - name: MERCADO_PAGO_NOTIFICATION
+            value: "https://webhook.site/64403458-1ea5-469a-9427-49d1e4b5cc52"
+          - name: ORDER_MS_URL
+            value: "https://webhook.site/64403458-1ea5-469a-9427-49d1e4b5cc52"
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 80
+          periodSeconds: 15
+          failureThreshold: 3
+          successThreshold: 1
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
+        volumeMounts:
+        - name: payment-ms-api-volume
+          mountPath: /var/www/volume
+      volumes:
+      - name: payment-ms-api-volume
+        persistentVolumeClaim:
+          claimName: payment-ms-api-pvc
