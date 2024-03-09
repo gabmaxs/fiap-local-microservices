@@ -25,13 +25,13 @@ spec:
         name: payment-ms-db
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: password
+          value: "password"
         - name: MYSQL_DATABASE
-          value: PAYMENT_MS_DB
+          value: "payment-ms"
         - name: MYSQL_USER
-          value: user
+          value: "user"
         - name: MYSQL_PASSWORD
-          value: password
+          value: "password"
         ports:
         - containerPort: 3306
           name: mysql

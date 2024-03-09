@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: payment-api
+  name: order-api
   namespace: tech-challenge
 spec:
   selector:
     matchLabels:
-      app: payment-api
-  replicas: 2
+      app: order-api
+  replicas: 1
   template:
     metadata:
       labels:
-        app: payment-api
+        app: order-api
     spec:
       containers:
-      - name: payment-api
-        image: tech-challenge/payment-api:latest
+      - name: order-api
+        image: tech-challenge/order-api:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 80
@@ -42,9 +42,9 @@ spec:
           initialDelaySeconds: 10
           timeoutSeconds: 10
         volumeMounts:
-        - name: payment-ms-api-volume
+        - name: order-ms-api-volume
           mountPath: /var/www/volume
       volumes:
-      - name: payment-ms-api-volume
+      - name: order-ms-api-volume
         persistentVolumeClaim:
-          claimName: payment-ms-api-pvc
+          claimName: order-ms-api-pvc

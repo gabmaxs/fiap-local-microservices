@@ -2,16 +2,16 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: tech-challenge
-  name: payment-ms-db-service
+  name: order-ms-db-service
   labels:
-    app: payment-ms-db
+    app: order-ms-db
 spec:
   type: NodePort
   selector:
-    app: payment-ms-db
+    app: order-ms-db
   ports:
-    - name: "payment-ms-db"
+    - name: "order-ms-db"
       protocol: TCP
-      port: 3306
-      targetPort: 3306
-      nodePort: 30432
+      port: 3307
+      targetPort: 3307
+      nodePort: 30433

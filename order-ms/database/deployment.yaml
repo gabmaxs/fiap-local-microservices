@@ -2,14 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: tech-challenge
-  name: payment-ms-db
+  name: order-ms-db
   labels:
-    app: payment-ms-db
+    app: order-ms-db
     tier: mysql
 spec:
   selector:
     matchLabels:
-      app: payment-ms-db
+      app: order-ms-db
       tier: mysql
   strategy:
     type: Recreate
@@ -17,12 +17,12 @@ spec:
     metadata:
       namespace: tech-challenge
       labels:
-        app: payment-ms-db
+        app: order-ms-db
         tier: mysql
     spec:
       containers:
       - image: mysql:8.0
-        name: payment-ms-db
+        name: order-ms-db
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: password
@@ -33,12 +33,12 @@ spec:
         - name: MYSQL_PASSWORD
           value: password
         ports:
-        - containerPort: 3306
+        - containerPort: 3307
           name: mysql
         volumeMounts:
-        - name: payment-ms-db-volume
+        - name: order-ms-db-volume
           mountPath: /var/lib/mysql
       volumes:
-      - name: payment-ms-db-volume
+      - name: order-ms-db-volume
         persistentVolumeClaim:
-          claimName: payment-ms-db-pvc
+          claimName: order-ms-db-pvc

@@ -2,9 +2,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   namespace: tech-challenge
-  name: payment-ms-api-pvc
+  name: order-ms-api-pvc
   labels:
-    app: payment-ms-db
+    app: order-ms-db
 spec:
   accessModes:
     - ReadWriteOnce

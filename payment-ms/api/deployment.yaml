@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: payment-api
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -18,7 +18,7 @@ spec:
         image: tech-challenge/payment-api:latest
         imagePullPolicy: Never
         ports:
-        - containerPort: 80
+        - containerPort: 3000
         env:
           - name: MERCADO_PAGO_URL
             value: "https://api.mercadopago.com"
@@ -32,14 +32,26 @@ spec:
             value: "https://webhook.site/64403458-1ea5-469a-9427-49d1e4b5cc52"
           - name: ORDER_MS_URL
             value: "https://webhook.site/64403458-1ea5-469a-9427-49d1e4b5cc52"
+          - name: DB_TYPE
+            value: "mysql"
+          - name: DB_HOST
+            value: "payment-ms-db-service"
+          - name: DB_PORT
+            value: "3306"
+          - name: DB_USER
+            value: "root"
+          - name: DB_PASSWORD
+            value: "password"
+          - name: DB_DATABASE
+            value: "payment-ms"
         livenessProbe:
           httpGet:
-            path: /healthcheck
-            port: 80
+            path: /live
+            port: 3000
           periodSeconds: 15
           failureThreshold: 3
           successThreshold: 1
-          initialDelaySeconds: 10
+          initialDelaySeconds: 30
           timeoutSeconds: 10
         volumeMounts:
         - name: payment-ms-api-volume

@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: payment-api-service
+  name: order-api-service
   namespace: tech-challenge
   labels:
-    app: payment-api
+    app: order-api
 spec:
   selector:
-    app: payment-api
+    app: order-api
   type: LoadBalancer
   ports:
     - name: http
-      port: 8888
+      port: 8889
       targetPort: 80
       protocol: TCP
