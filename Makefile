@@ -1,4 +1,4 @@
-start-kubernetes: start-namespace start-payment-ms start-order-ms
+start-kubernetes: start-namespace start-payment-ms start-order-ms start-kafka
 
 start-namespace:
 	kubectl apply -f ./namespace.yaml
@@ -14,6 +14,9 @@ start-production-ms:
 start-order-ms:
 	kubectl apply -f ./order-ms/database/
 	kubectl apply -f ./order-ms/api/
+
+start-kafka:
+	kubectl apply -f ./kafka/
 
 delete-namespace:
 	kubectl delete all --all --namespace tech-challenge
