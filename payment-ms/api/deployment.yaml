@@ -20,6 +20,8 @@ spec:
         ports:
         - containerPort: 3000
         env:
+          - name: APP_NAME
+            value: "payment-ms"
           - name: MERCADO_PAGO_URL
             value: "https://api.mercadopago.com"
           - name: MERCADO_PAGO_USER
@@ -42,8 +44,16 @@ spec:
             value: "root"
           - name: DB_PASSWORD
             value: "password"
-          - name: DB_DATABASE
-            value: "payment-ms"
+          - name: KAFKA_BROKER
+            value: "kafka-service"
+          - name: KAFKA_PORT
+            value: "9092"
+          - name: KAFKA_TOPIC_PEDIDO_NOVO
+            value: "pedido-novo"
+          - name: KAFKA_TOPIC_PAGAMENTO_APROVADO
+            value: "pagamento-aprovado"
+          - name: KAFKA_TOPIC_PAGAMENTO_NAO_APROVADO
+            value: "pagamento-nao-aprovado"
         livenessProbe:
           httpGet:
             path: /live
