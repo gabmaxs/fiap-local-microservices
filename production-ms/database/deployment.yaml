@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: tech-challenge
+  name: production-ms-db
+  labels:
+    app: production-ms-db
+    tier: postgres
+spec:
+  selector:
+    matchLabels:
+      app: production-ms-db
+      tier: postgres
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      namespace: tech-challenge
+      labels:
+        app: production-ms-db
+        tier: postgres
+    spec:
+      containers:
+      - image: postgres:latest
+        name: production-ms-db
+        env:
+        - name: POSTGRES_DB
+          value: "techfood"
+        - name: POSTGRES_USER
+          value: "admin"
+        - name: POSTGRES_PASSWORD
+          value: "secretpassword"
+        ports:
+        - containerPort: 5432
+          name: mysql
+        volumeMounts:
+        - name: production-ms-db-volume
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: production-ms-db-volume
+        persistentVolumeClaim:
+          claimName: production-ms-db-pvc

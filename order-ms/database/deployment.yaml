@@ -5,39 +5,35 @@ metadata:
   name: order-ms-db
   labels:
     app: order-ms-db
-    tier: mysql
+    tier: mongodb
 spec:
   selector:
     matchLabels:
       app: order-ms-db
-      tier: mysql
-  strategy:
-    type: Recreate
+      tier: mongodb
   template:
     metadata:
       namespace: tech-challenge
       labels:
         app: order-ms-db
-        tier: mysql
+        tier: mongodb
     spec:
       containers:
-      - image: mysql:8.0
+      - image: mongo
         name: order-ms-db
         env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: password
-        - name: MYSQL_DATABASE
-          value: PAYMENT_MS_DB
-        - name: MYSQL_USER
-          value: user
-        - name: MYSQL_PASSWORD
-          value: password
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: "mongoroot"
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: "123456"
+          - name: MONGO_INITDB_DATABASE
+            value: "pedidos"
         ports:
-        - containerPort: 3307
-          name: mysql
+        - containerPort: 27017
+          name: mongodb
         volumeMounts:
         - name: order-ms-db-volume
-          mountPath: /var/lib/mysql
+          mountPath: /data/db
       volumes:
       - name: order-ms-db-volume
         persistentVolumeClaim:

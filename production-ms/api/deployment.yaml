@@ -1,37 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order-api
+  name: production-api
   namespace: tech-challenge
 spec:
   selector:
     matchLabels:
-      app: order-api
+      app: production-api
   replicas: 1
   template:
     metadata:
       labels:
-        app: order-api
+        app: production-api
     spec:
       containers:
-      - name: order-api
-        image: tech-challenge/order-api:latest
+      - name: production-api
+        image: tech-challenge/production-api:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 80
         env:
-          - name: MONGO_USERNAME
-            value: "mongoroot"
-          - name: MONGO_PASSWORD
-            value: "123456"
-          - name: MONGO_DATABASE
-            value: "pedidos"
-          - name: MONGO_HOST
-            value: "order-ms-db-service"
-          - name: QUEUE
-            value: "Kafka"
-          - name: PAYMENT_CONNECTION
-            value: "localhost:3000"
+          - name: APP_NAME
+            value: "production-ms"
+          - name: DATABASE_HOST
+            value: "production-ms-db-service"
+          - name: DATABASE_PORT
+            value: "5432"
+          - name: DATABASE_USER
+            value: "admin"
+          - name: DATABASE_PASSWORD
+            value: "secretpassword"
           - name: KAFKA_BROKER
             value: "kafka-service"
           - name: KAFKA_PORT
@@ -42,10 +40,6 @@ spec:
             value: "pagamento-aprovado"
           - name: KAFKA_TOPIC_PAGAMENTO_NAO_APROVADO
             value: "pagamento-nao-aprovado"
-          - name: PRODUCTION_CONNECTION
-            value: ""
-          - name: PRODUCTION_TOPIC
-            value: ""
         livenessProbe:
           httpGet:
             path: /healthcheck
@@ -53,12 +47,12 @@ spec:
           periodSeconds: 15
           failureThreshold: 3
           successThreshold: 1
-          initialDelaySeconds: 10
+          initialDelaySeconds: 30
           timeoutSeconds: 10
         volumeMounts:
-        - name: order-ms-api-volume
+        - name: production-ms-api-volume
           mountPath: /var/www/volume
       volumes:
-      - name: order-ms-api-volume
+      - name: production-ms-api-volume
         persistentVolumeClaim:
-          claimName: order-ms-api-pvc
+          claimName: production-ms-api-pvc

@@ -12,6 +12,5 @@ spec:
   ports:
     - name: "order-ms-db"
       protocol: TCP
-      port: 3307
-      targetPort: 3307
-      nodePort: 30433
+      port: 27017
+      targetPort: 27017

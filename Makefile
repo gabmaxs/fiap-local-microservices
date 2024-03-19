@@ -1,4 +1,4 @@
-start-kubernetes: start-namespace start-payment-ms start-order-ms start-kafka
+start-kubernetes: start-namespace start-payment-ms start-order-ms start-production-ms start-kafka
 
 start-namespace:
 	kubectl apply -f ./namespace.yaml
