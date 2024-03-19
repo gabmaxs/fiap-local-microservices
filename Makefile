@@ -20,6 +20,3 @@ start-kafka:
 
 delete-namespace:
 	kubectl delete all --all --namespace tech-challenge
-
-create-db:
-	kubectl exec -i deploy/database -n tech-challenge -- mysql -u user -ppassword FIAP_CHALLENGE < dump-database.sql
