@@ -18,7 +18,7 @@ spec:
         image: tech-challenge/production-api:latest
         imagePullPolicy: Never
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         env:
           - name: APP_NAME
             value: "production-ms"
@@ -43,7 +43,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /healthcheck
-            port: 80
+            port: 8080
           periodSeconds: 15
           failureThreshold: 3
           successThreshold: 1
