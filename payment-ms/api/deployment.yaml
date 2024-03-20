@@ -31,9 +31,9 @@ spec:
           - name: MERCADO_PAGO_EMPRESA_ID
             value: "EMP1"
           - name: MERCADO_PAGO_NOTIFICATION
-            value: "https://webhook.site/64403458-1ea5-469a-9427-49d1e4b5cc52"
+            value: "https://webhook.site/0a99c460-0eff-412e-ba0a-f418e4391fa5"
           - name: ORDER_MS_URL
-            value: "https://webhook.site/64403458-1ea5-469a-9427-49d1e4b5cc52"
+            value: "https://webhook.site/0a99c460-0eff-412e-ba0a-f418e4391fa5"
           - name: DB_TYPE
             value: "mysql"
           - name: DB_HOST
